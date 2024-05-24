@@ -45,8 +45,8 @@ function encodeUrlParameters(url) {
     return `${baseUrl}?${encodedParams}`;
 }
 
-// Obtém o valor do parâmetro 'videoUrl' da URL
-let rawVideoUrl = getParameterByName('videoUrl');
+// Obtém o valor do parâmetro 'url' da URL
+let rawVideoUrl = getParameterByName('url');
 console.log('Raw Video URL:', rawVideoUrl);  // Depuração: Exibir a URL do vídeo antes de codificação
 
 // Processa a URL do vídeo para codificar os parâmetros
