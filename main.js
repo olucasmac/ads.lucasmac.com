@@ -99,3 +99,5 @@ if (processedVideoUrl) {
         video.style.display = 'block';
         video.load();
         console.log('Video source set and loaded');  // Depuração
+    }
+}
