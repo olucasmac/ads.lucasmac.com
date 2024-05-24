@@ -45,6 +45,24 @@ function encodeUrlParameters(url) {
     return `${baseUrl}?${encodedParams}`;
 }
 
+// Função para detectar bloqueadores de anúncios
+function detectAdBlock() {
+    const adBlockEnabled = document.createElement('div');
+    adBlockEnabled.className = 'adsbygoogle';
+    adBlockEnabled.style.display = 'none';
+    document.body.appendChild(adBlockEnabled);
+    if (window.getComputedStyle(adBlockEnabled).display === 'none') {
+        return true;
+    }
+    document.body.removeChild(adBlockEnabled);
+    return false;
+}
+
+// Mostra a mensagem se o bloqueador de anúncios estiver ativo
+if (detectAdBlock()) {
+    document.getElementById('ad-blocker-warning').classList.remove('hidden');
+}
+
 // Obtém o valor do parâmetro 'url' da URL
 let rawVideoUrl = getParameterByName('url');
 console.log('Raw Video URL:', rawVideoUrl);  // Depuração: Exibir a URL do vídeo antes de codificação
@@ -80,27 +98,4 @@ if (processedVideoUrl) {
         const video = document.getElementById('main-video');
         video.style.display = 'block';
         video.load();
-        console.log('Video source set and loaded');  // Depuração: Confirmar source do vídeo
-
-        // Adiciona eventos para depuração adicional
-        video.addEventListener('loadeddata', () => {
-            console.log('Video data loaded');
-        });
-
-        video.addEventListener('error', (e) => {
-            console.error('Video error', e);
-            console.error('Error details:', e.target.error);
-        });
-
-        // Adicionar um timeout para verificar se o vídeo está tentando carregar
-        setTimeout(() => {
-            if (video.readyState < 3) {
-                console.error('Video failed to load, readyState:', video.readyState);
-            } else {
-                console.log('Video loaded successfully, readyState:', video.readyState);
-            }
-        }, 5000);
-    }
-} else {
-    console.log('No video URL found');  // Depuração: Nenhuma URL de vídeo encontrada
-}
+        console.log('Video source set and loaded');  // Depuração
